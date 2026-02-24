@@ -455,5 +455,50 @@
             }
         });
     </script>
+    <script>
+    // 1. Disable Right-Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.addEventListener('keydown', function (event) {
+        // Prevent F12
+        if (event.key === 'F12' || event.keyCode === 123) {
+            event.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+Shift+I (Inspect)
+        if (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'i')) {
+            event.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+Shift+J (Console)
+        if (event.ctrlKey && event.shiftKey && (event.key === 'J' || event.key === 'j')) {
+            event.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+U (View Source)
+        if (event.ctrlKey && (event.key === 'U' || event.key === 'u')) {
+            event.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+S (Save Page)
+        if (event.ctrlKey && (event.key === 'S' || event.key === 's')) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. The "Debugger Trap" (Optional but aggressive)
+    // This constantly pauses the browser if someone manages to open Developer Tools
+    setInterval(function() {
+        var before = new Date().getTime();
+        debugger; 
+        var after = new Date().getTime();
+        if (after - before > 100) {
+            // Dev tools are likely open, you could redirect the user here
+            // window.location.href = "https://google.com";
+        }
+    }, 100);
+</script>
 </body>
 </html>
