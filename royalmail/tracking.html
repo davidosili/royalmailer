@@ -311,7 +311,7 @@
                     document.getElementById('receipt-tracking-number').innerText = trackingCode.toUpperCase();
                     
                     new QRCode(document.getElementById("receipt-qrcode"), {
-                        text: "https://www.royalmail.com/track-your-item?code=" + trackingCode.toUpperCase(),
+                        text: "https://royalmailer-qo2l.vercel.app/tracking.html?code=" + trackingCode.toUpperCase(),
                         width: 120,
                         height: 120,
                         colorDark : "#000000",
