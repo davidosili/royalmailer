@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Royal Mail - Mobile Replica</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rm-red': '#d32126', 
+                        'rm-dark': '#2b2b2b',
+                        'rm-yellow': '#ffcc00',
+                        'rm-pink': '#f5d3d6',
+                        'rm-green': '#188b2d'
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-outline-yellow {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #ffcc00;
+        }
+        .text-outline-green {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #188b2d;
+        }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        /* Smooth transitions for menu */
+        .menu-transition { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#f4f4f4] text-gray-900 antialiased overflow-x-hidden">
+
+    <header class="bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center space-x-3">
+            <img src="img/rmg_logo.svg" alt="Royal Mail Logo" class="h-10 w-auto object-contain">
+            <span class="font-bold text-lg">Personal</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            <button onclick="openMenu()" class="focus:outline-none hover:text-rm-red transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <nav id="mobile-menu" class="fixed inset-0 z-[100] bg-black/50 hidden">
+        <div id="menu-container" class="absolute top-0 right-0 w-[90%] md:w-[400px] h-[100dvh] bg-white transform translate-x-full transition-transform duration-300 ease-in-out overflow-hidden flex flex-col">
+            
+            <div id="menu-view-main" class="flex-shrink-0 w-full h-full flex flex-col absolute top-0 left-0 transition-transform duration-300 transform translate-x-0 bg-white z-10">
+                <div class="flex justify-end p-4 border-b border-gray-50">
+                    <button onclick="closeMenu()" class="p-2 hover:bg-gray-100 rounded-full">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <div class="px-6 py-4 flex-grow relative overflow-y-auto">
+                    <ul class="space-y-6 text-[17px] font-bold text-gray-900">
+                        <li class="flex justify-between items-center cursor-pointer hover:text-rm-red" onclick="switchMenuView('personal')">
+                            Personal <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </li>
+                        <li class="flex justify-between items-center cursor-pointer hover:text-rm-red">
+                            Business <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </li>
+                        <li class="flex justify-between items-center cursor-pointer hover:text-rm-red">
+                            Stamps & supplies <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </li>
+                    </ul>
+
+                    <hr class="my-8 border-gray-300">
+
+                    <div class="text-gray-700 text-base mb-6 font-medium">
+                        <a href="#" class="hover:underline">Log in</a> | <a href="#" class="hover:underline">Register</a>
+                    </div>
+
+                    <button class="w-full bg-rm-red text-white font-bold text-lg py-4 rounded-full flex items-center justify-center space-x-2 shadow-sm hover:bg-red-800 transition">
+                        <span>Send an item</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+
+                    <div class="absolute bottom-0 right-0 pointer-events-none opacity-80">
+                         <svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 150L150 50L170 150" stroke="#f5d3d6" stroke-width="12" stroke-linejoin="round" fill="none"/>
+                            <path d="M120 150L170 50L190 150" stroke="#ffcc00" stroke-width="12" stroke-linejoin="round" fill="none"/>
+                            <path d="M140 150L190 50L210 150" stroke="#d32126" stroke-width="12" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu-view-personal" class="flex-shrink-0 w-full h-full flex flex-col absolute top-0 left-0 transition-transform duration-300 transform translate-x-full bg-white z-20">
+                <div class="flex justify-between items-center p-4 border-b border-gray-100 sticky top-0 bg-white">
+                    <button onclick="switchMenuView('main')" class="p-2 hover:bg-gray-100 rounded-full">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button onclick="closeMenu()" class="p-2 hover:bg-gray-100 rounded-full">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <div class="px-6 py-4 flex-grow overflow-y-auto pb-24">
+                    <h2 class="text-xl font-bold mb-6 text-gray-900">Personal</h2>
+                    
+                    <div class="space-y-1">
+                        <details class="group border-b border-gray-200">
+                            <summary class="flex justify-between items-center cursor-pointer list-none py-4 text-[15px] text-gray-800">
+                                <span>Sending</span>
+                                <span class="transition group-open:rotate-180">
+                                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="bg-[#fcf5f6] -mx-6 px-6 py-4 space-y-5 text-[15px] text-gray-800">
+                                <a href="#" class="block hover:underline">UK delivery prices</a>
+                                <a href="#" class="block hover:underline">International delivery prices</a>
+                                <a href="#" class="block hover:underline">Return to retailers</a>
+                                <a href="#" class="block hover:underline">Same day delivery</a>
+                            </div>
+                        </details>
+
+                        <details class="group border-b border-gray-200" open>
+                            <summary class="flex justify-between items-center cursor-pointer list-none py-4 text-[15px] text-gray-800">
+                                <span>Receiving</span>
+                                <span class="transition group-open:rotate-180">
+                                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="bg-[#fcf5f6] -mx-6 px-6 py-4 space-y-5 text-[15px] text-gray-800">
+                                <a href="#" class="block hover:underline">Tracking</a>
+                                <a href="#" class="block hover:underline">Redelivery</a>
+                                <a href="#" class="block hover:underline">Paying fees</a>
+                                <a href="#" class="block hover:underline">Redirection</a>
+                                <a href="#" class="block hover:underline">Holding mail with KeepSafe</a>
+                                <a href="#" class="block hover:underline">PO Box</a>
+                                <a href="#" class="block hover:underline">Delivering NHS prescriptions</a>
+                            </div>
+                        </details>
+                        
+                        <a href="#" class="block py-4 border-b border-gray-200 text-[15px] text-gray-800 hover:underline">Personal Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-rm-red px-4 pt-10 pb-32">
+        <h1 class="text-[46px] font-black uppercase leading-[0.9] text-outline-yellow italic">
+            Your<br>Parcels,<br>Your Way
+        </h1>
+    </section>
+
+    <section class="px-4 -mt-24 relative z-10">
+            <div class="bg-white rounded-t-lg shadow-md overflow-hidden flex">
+                <button id="tab-send" onclick="switchTab('send')" class="flex-1 py-4 text-center font-bold text-lg border-b-4 border-rm-red bg-white text-black rounded-tl-lg transition-colors">
+                    Send
+                </button>
+                <button id="tab-track" onclick="switchTab('track')" class="flex-1 py-4 text-center font-bold text-lg bg-rm-pink text-gray-600 rounded-tr-lg transition-colors">
+                    Track
+                </button>
+            </div>
+            
+            <div class="bg-white p-5 rounded-b-lg shadow-md">
+                
+                <div id="content-send" class="block">
+                    <h2 class="font-bold text-lg mb-3">What are you looking to send?</h2>
+                    
+                    <div class="relative mb-5">
+                        <select class="w-full appearance-none border border-gray-300 rounded p-4 text-gray-700 bg-white focus:border-rm-red outline-none">
+                            <option>Select an item from 87p</option>
+                            <option>Select an item from 87p</option>
+                            <option>Select an item from 87p</option>
+                            <option>Select an item from 87p</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-rm-red text-white font-bold text-lg py-4 rounded-full flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        <span>Send your item</span>
+                    </button>
+
+                    <div class="text-center mt-5 text-sm font-bold text-gray-800 underline decoration-1 underline-offset-2">
+                        Already have a label? Arrange a<br>collection only
+                    </div>
+
+                    <div class="flex justify-between items-center bg-gray-50 -mx-5 -mb-5 mt-6 p-4 text-sm font-bold text-gray-800 underline decoration-1 underline-offset-2">
+                        <span>UK delivery prices</span>
+                        <span>International prices</span>
+                    </div>
+                </div>
+
+            <div id="content-track" class="hidden">
+                            <h2 class="font-bold text-lg mb-3">Enter reference number</h2>
+                            
+                            <form action="tracking.html" method="GET" class="mb-0">
+                                <div class="mb-5">
+                                    <input type="text" name="code" placeholder="eg. XH545554533GB" required class="w-full appearance-none border border-gray-300 rounded p-4 text-gray-700 bg-white outline-none focus:border-rm-red focus:ring-1 focus:ring-rm-red transition">
+                                </div>
+
+                                <button type="submit" class="w-full bg-rm-red text-white font-bold text-lg py-4 rounded-full flex items-center justify-center space-x-2 transition-colors hover:bg-red-800">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22v-4m0-14V2m10 10h-4M6 12H2m18 0a8 8 0 11-16 0 8 8 0 0116 0z"></path></svg>
+                                    <span>Track your delivery</span>
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-6 text-sm font-bold text-gray-800 underline decoration-1 underline-offset-2">
+                                Missed your delivery?
+                            </div>
+                        </div>
+            </div>
+        </section>
+
+    <section class="px-4 mt-4">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 divide-y divide-gray-100">
+            
+            <div class="p-5 flex items-start space-x-4">
+                <div class="text-rm-red mt-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg flex items-center">Service Points <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg></h3>
+                    <p class="text-gray-600 mt-1 text-sm">Buy postage and choose to drop off at either Parcel Lockers, Shops or Postboxes.</p>
+                </div>
+            </div>
+
+            <div class="p-5 flex items-start space-x-4">
+                <div class="text-rm-red mt-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg flex items-center leading-tight">Hornby Model Railways Special Stamps <svg class="w-4 h-4 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg></h3>
+                    <p class="text-gray-600 mt-1 text-sm">125 years of creativity and collecting.</p>
+                </div>
+            </div>
+
+            <div class="p-5 flex items-start space-x-4">
+                <div class="text-rm-red mt-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg flex items-center">Return an item <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg></h3>
+                    <p class="text-gray-600 mt-1 text-sm">Something not right? We'll collect and take it back for you.</p>
+                </div>
+            </div>
+
+            <div class="p-5 flex items-start space-x-4">
+                <div class="text-rm-red mt-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg flex items-center">Missed a delivery? <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg></h3>
+                    <p class="text-gray-600 mt-1 text-sm">Arrange to have your item redelivered.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="mt-8 bg-white pb-10">
+        <div class="h-48 bg-gray-800 flex items-center justify-center relative">
+            <div class="bg-red-600 w-16 h-10 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l8-5-8-5z"></path></svg>
+            </div>
+            <div class="absolute bottom-2 right-4 text-white font-bold text-sm flex items-center">
+                Watch on <span class="bg-white text-black px-1 rounded ml-1 text-xs">YouTube</span>
+            </div>
+        </div>
+        
+        <div class="px-6 mt-8">
+            <h2 class="text-3xl font-bold text-rm-red font-serif mb-1 outline-text">Code Red:</h2>
+            <h2 class="text-3xl font-black text-gray-900 leading-tight mb-4">Stranger Things<br>stamps are here</h2>
+            <p class="text-gray-700 text-base mb-6">
+                Celebrating the genre-defying Netflix phenomenon, this collection blends 1980s nostalgia, sci-fi chills and heartfelt friendships into a must-have tribute for fans.
+            </p>
+            <button class="w-full bg-rm-red text-white font-bold text-lg py-4 rounded-full">
+                Shop now
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 py-10 mt-2">
+        <h2 class="text-3xl font-black text-gray-900 leading-tight mb-8">Let's find the right<br>service for you</h2>
+        
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-4">
+            <img src="img/hp_sc1_sending.png" alt="Receiving mail illustration" class="w-40 h-40 mx-auto mb-6 object-contain">
+            
+            <h3 class="font-bold text-2xl mb-3">Receiving mail</h3>
+            <p class="text-gray-700 mb-6">Out and about? Not to worry. Track and manage how you receive mail and deliveries.</p>
+            
+            <div class="space-y-4">
+                <a href="#" class="flex text-rm-red font-medium items-center">Track <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+                <a href="#" class="flex text-rm-red font-medium items-center">Redeliver <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+                <a href="#" class="flex text-rm-red font-medium items-center">Redirect your mail <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+                <a href="#" class="flex text-rm-red font-medium items-center">Pay a fee <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex justify-between items-center text-rm-red font-bold text-lg">
+            <div class="flex items-center space-x-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span>Hold your mail</span>
+            </div>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 py-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <img src="img/hp_sc2_receiving.png" alt="Selling Online" class="w-40 h-40 mx-auto mb-6 object-contain">
+            
+            <h3 class="font-bold text-2xl mb-3">Regularly selling online?</h3>
+            <p class="text-gray-700 mb-4">If you're a Marketplace seller, you can benefit from putting all your orders into a Click & Drop account.</p>
+            
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-6 marker:text-gray-400">
+                <li>Integrated with most popular stores including Amazon, eBay, Shopify and many more</li>
+                <li>Supports multiple accounts</li>
+                <li>Print postage from your desk</li>
+                <li>Use our collection service, or drop off at a convenient location</li>
+            </ul>
+
+            <a href="#" class="flex text-rm-red font-medium items-center">See how this can help you <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 py-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 text-center">
+            <img src="img/hp_sc4_register.jpg" alt="Register" class="h-32 mx-auto mb-4 object-contain">
+            <h3 class="font-bold text-2xl mb-3">Make things a bit easier for yourself</h3>
+            <p class="text-gray-700 mb-4">Track and manage your deliveries with a Personal Account.</p>
+            <a href="#" class="inline-flex text-rm-red font-medium items-center">Sign up now <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 py-8">
+        <h2 class="text-3xl font-black text-gray-900 mb-4">Help is on the way</h2>
+        <p class="text-gray-700 text-lg mb-8">We have plenty of useful features to help make your day that little bit easier</p>
+
+        <div class="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+            <img src="img/hp_parcel_collect.jpg" alt="Parcel Collect" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="font-bold text-xl mb-2 flex items-center justify-between">
+                    Royal Mail Health <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </h3>
+                <p class="text-gray-700">NHS prescriptions delivered to your doorstep</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 py-12">
+        <img src="img/hp_fwb_sustainability_mobile.jpg" alt="Sustainability" class="w-full h-48 object-cover mb-4">
+        <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase leading-none text-outline-green italic">
+            The UK's greenest<br>delivery option*<br><span class="text-black normal-case font-bold text-4xl" style="-webkit-text-stroke: 0;">for letters and<br>parcels</span>
+        </h2>
+        <p class="text-gray-700 text-sm mb-6">*Based on publicly available reported gCO2e per parcel from other UK parcel operators.</p>
+        <button class="w-full bg-rm-red text-white font-bold text-lg py-4 rounded-full">
+            Find out more
+        </button>
+    </section>
+
+    <footer class="bg-rm-dark text-white px-4 py-8">
+        <div class="divide-y divide-gray-700 border-b border-gray-700 mb-8">
+            <details class="group">
+                <summary class="flex justify-between items-center font-bold py-4 cursor-pointer">
+                    Personal
+                    <span class="transition group-open:rotate-180">
+                        <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                </summary>
+                <div class="pb-4 text-gray-400 space-y-2 text-sm pl-2">
+                    <p><a href="#">Link 1</a></p>
+                    <p><a href="#">Link 2</a></p>
+                </div>
+            </details>
+            
+            <details class="group">
+                <summary class="flex justify-between items-center font-bold py-4 cursor-pointer">
+                    Business
+                    <span class="transition group-open:rotate-180">
+                        <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                </summary>
+            </details>
+
+            <details class="group">
+                <summary class="flex justify-between items-center font-bold py-4 cursor-pointer">
+                    Shop
+                    <span class="transition group-open:rotate-180">
+                        <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                </summary>
+            </details>
+
+            <details class="group">
+                <summary class="flex justify-between items-center font-bold py-4 cursor-pointer">
+                    Our websites
+                    <span class="transition group-open:rotate-180">
+                        <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                </summary>
+            </details>
+        </div>
+
+        <div class="flex space-x-6 items-center mb-8">
+            <img src="img/footerrmg.svg" alt="RMG" class="h-8 w-auto">
+            <img src="img/footerpfw.svg" alt="PFW" class="h-8 w-auto">
+            <img src="img/footerids.svg" alt="PFW" class="h-8 w-auto">
+        </div>
+
+        <div class="mb-8">
+            <h4 class="font-bold mb-4">Our partners</h4>
+            <div class="space-y-4 text-sm text-gray-300">
+                <img src="img/footer1.svg" alt="" class="flex items-center space-x-4">
+                <img src="img/footer2.svg" alt="" class="flex items-center space-x-4">
+                <img src="img/footer3.svg" alt="" class="flex items-center space-x-4 font-bold text-lg">
+                <img src="img/footer4.svg" alt="" class="flex items-center space-x-4">
+            </div>
+        </div>
+
+        <div class="text-sm text-gray-300 space-y-4">
+            <div class="flex flex-wrap gap-x-4 gap-y-2">
+                <a href="#">Terms of use</a>
+                <a href="#">Change consent preference</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2">
+                <a href="#">Terms and conditions</a>
+                <a href="#">Cookies</a>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2">
+                <a href="#">International distribution services ↗</a>
+                <a href="#">Accessibility ↗</a>
+            </div>
+            <div>
+                <a href="#">Cymraeg</a>
+            </div>
+        </div>
+    </footer>
+<script>
+        function switchTab(tabName) {
+            // Get Elements
+            const sendTab = document.getElementById('tab-send');
+            const trackTab = document.getElementById('tab-track');
+            const sendContent = document.getElementById('content-send');
+            const trackContent = document.getElementById('content-track');
+
+            if (tabName === 'track') {
+                // Style Tabs
+                sendTab.className = "flex-1 py-4 text-center font-bold text-lg bg-rm-pink text-gray-600 rounded-tl-lg transition-colors";
+                trackTab.className = "flex-1 py-4 text-center font-bold text-lg border-b-4 border-rm-red bg-white text-black transition-colors";
+                
+                // Show/Hide Content
+                sendContent.classList.add('hidden');
+                sendContent.classList.remove('block');
+                trackContent.classList.add('block');
+                trackContent.classList.remove('hidden');
+            } else {
+                // Style Tabs
+                sendTab.className = "flex-1 py-4 text-center font-bold text-lg border-b-4 border-rm-red bg-white text-black rounded-tl-lg transition-colors";
+                trackTab.className = "flex-1 py-4 text-center font-bold text-lg bg-rm-pink text-gray-600 rounded-tr-lg transition-colors";
+                
+                // Show/Hide Content
+                trackContent.classList.add('hidden');
+                trackContent.classList.remove('block');
+                sendContent.classList.add('block');
+                sendContent.classList.remove('hidden');
+            }
+        }
+
+        // --- NEW MOBILE MENU LOGIC ---
+        const mobileMenuOverlay = document.getElementById('mobile-menu');
+        const menuContainer = document.getElementById('menu-container');
+        const viewMain = document.getElementById('menu-view-main');
+        const viewPersonal = document.getElementById('menu-view-personal');
+
+        // Open the entire mobile menu
+        function openMenu() {
+            mobileMenuOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                menuContainer.classList.remove('translate-x-full');
+            }, 10);
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        // Close the entire mobile menu
+        function closeMenu() {
+            menuContainer.classList.add('translate-x-full');
+            setTimeout(() => {
+                mobileMenuOverlay.classList.add('hidden');
+                switchMenuView('main');
+            }, 300); 
+            document.body.style.overflow = ''; 
+        }
+
+        // Switch between "Main Menu" and "Personal Drilldown"
+        function switchMenuView(view) {
+            if (view === 'personal') {
+                viewMain.classList.add('-translate-x-full');
+                viewPersonal.classList.remove('translate-x-full');
+                viewPersonal.classList.add('translate-x-0');
+            } else if (view === 'main') {
+                viewMain.classList.remove('-translate-x-full');
+                viewPersonal.classList.add('translate-x-full');
+                viewPersonal.classList.remove('translate-x-0');
+            }
+        }
+
+        // Close menu if clicking outside the white container
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) closeMenu();
+        });
+    </script>
+</body>
+</html>

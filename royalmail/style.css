@@ -1,0 +1,172 @@
+/* ==============================================================
+   STRICTLY DESKTOP / PC VIEW (Applies ONLY to screens wider than 1024px)
+   ============================================================== */
+
+@media (min-width: 1024px) {
+    
+    /* 1. Global Centering 
+       Creates an invisible 1100px column to keep content readable on wide monitors */
+    header, body > section {
+        max-width: 1100px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* 2. Header Adjustments */
+    header {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        width: 100%;
+    }
+
+    /* 3. Hero Section (Red Background) */
+    body > section:nth-of-type(1) {
+        max-width: 100%; /* Overrides the 1100px limit so the red bleeds edge-to-edge */
+        padding-left: max(1rem, calc(50vw - 550px)) !important;
+        padding-right: max(1rem, calc(50vw - 550px)) !important;
+        padding-top: 6rem;
+        padding-bottom: 16rem; /* Deep padding to hold the overlapping widget */
+        background-color: #d32126 !important;
+    }
+    body > section:nth-of-type(1) h1 {
+        width: 50%; /* Keeps text constrained to the left half */
+    }
+
+    /* 4. The Widget (Send/Track Box) -> Positioned on the RIGHT */
+    body > section:nth-of-type(2) {
+        margin-top: -24rem; /* Pulls it up over the red background */
+        position: relative;
+        z-index: 20;
+    }
+    body > section:nth-of-type(2) > div {
+        max-width: 480px; 
+        margin-left: auto; /* Pushes the widget box to the right */
+        margin-right: 0; 
+    }
+
+    /* 5. Quick Links -> Converted to a HORIZONTAL ROW */
+    body > section:nth-of-type(3) {
+        margin-top: 4rem; 
+        position: relative;
+        z-index: 20;
+    }
+    body > section:nth-of-type(3) > div {
+        display: flex; /* Converts stack to row */
+        flex-direction: row;
+        border: 1px solid #f3f4f6;
+    }
+    body > section:nth-of-type(3) > div > div {
+        flex: 1; /* Makes all 4 items equal width */
+        flex-direction: column; 
+        border-top: none !important; /* Removes mobile divide-y lines */
+        border-right: 1px solid #f3f4f6; /* Adds vertical separators */
+        padding: 2.5rem 1.5rem;
+    }
+    body > section:nth-of-type(3) > div > div:last-child {
+        border-right: none; 
+    }
+    body > section:nth-of-type(3) > div > div > div.text-rm-red {
+        margin-bottom: 1rem; /* Spacing under the icons */
+    }
+
+    /* 6. Stranger Things Promo */
+    body > section:nth-of-type(4) {
+        display: flex;
+        align-items: stretch;
+        margin-top: 5rem;
+        margin-bottom: 4rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        padding: 0;
+    }
+    body > section:nth-of-type(4) > div:first-child { width: 50%; min-height: 350px; }
+    body > section:nth-of-type(4) > div:last-child { width: 50%; padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+
+    /* 7. Service Cards Grid (Receiving, Selling, Make Easier) */
+    body > section:nth-of-type(5) {
+        display: flex; flex-wrap: wrap; justify-content: space-between;
+    }
+    body > section:nth-of-type(5) > h2 { width: 100%; margin-bottom: 2rem; }
+    body > section:nth-of-type(5) > div.bg-white { width: calc(50% - 1rem); margin-bottom: 2rem; }
+    
+    body > section:nth-of-type(6), body > section:nth-of-type(7) {
+        width: calc(50% - 1rem); display: inline-block; vertical-align: top; box-sizing: border-box;
+    }
+    body > section:nth-of-type(6) { margin-right: 1.5rem; }
+
+    /* 8. Help is on the way (Health Card) */
+    body > section:nth-of-type(8) { margin-top: 4rem; display: block; }
+    body > section:nth-of-type(8) > div.overflow-hidden { width: calc(33.333% - 1rem); }
+
+    /* 9. Sustainability Banner (Edge-to-Edge with White Box) */
+    body > section:nth-of-type(9) {
+        max-width: 100%; /* Bleeds edge-to-edge */
+        padding-left: max(1rem, calc(50vw - 550px)) !important;
+        padding-right: max(1rem, calc(50vw - 550px)) !important;
+        position: relative;
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Text naturally stops at the inner padding line */
+        justify-content: center;
+        min-height: 450px;
+        margin-top: 4rem;
+        background-color: transparent !important;
+    }
+    body > section:nth-of-type(9) > img {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+    }
+    
+    /* The White Box */
+    body > section:nth-of-type(9)::after {
+        content: ""; 
+        position: absolute; 
+        /* Absolute positioning ignores container padding, so we manually apply the grid math here */
+        right: max(1rem, calc(50vw - 550px)); 
+        top: 2rem; 
+        bottom: 2rem; 
+        width: 450px; 
+        background-color: white; 
+        z-index: 1; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Perfectly center the text inside the 450px white box */
+    body > section:nth-of-type(9) > h2, 
+    body > section:nth-of-type(9) > p, 
+    body > section:nth-of-type(9) > button {
+        position: relative; 
+        z-index: 2; 
+        width: 380px !important; 
+        margin-right: 35px !important; 
+    }
+
+    /* Override the mobile Typography classes for PC view */
+    body > section:nth-of-type(9) > h2 { 
+        font-size: 2.8rem; 
+        line-height: 1.1;
+        font-style: normal !important; 
+        text-transform: none !important; 
+        -webkit-text-stroke: 0 !important; 
+        color: #188b2d !important; 
+        margin-top: 2rem;
+    }
+    body > section:nth-of-type(9) > h2 > span {
+        font-size: 2.8rem !important; 
+    }
+
+    /* 10. Footer Transformation */
+    footer {
+        padding-left: max(1rem, calc(50vw - 550px)) !important;
+        padding-right: max(1rem, calc(50vw - 550px)) !important;
+    }
+    footer > div.divide-y {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; border-bottom: 1px solid #4b5563; padding-bottom: 2rem;
+    }
+    footer > div.divide-y > details { border-top: none !important; }
+    footer details summary { pointer-events: none; padding-top: 0; }
+    footer details summary span { display: none; }
+    footer details > div { display: block !important; padding-left: 0; margin-top: 1rem; }
+    
+} /* <-- This closes the @media query */
